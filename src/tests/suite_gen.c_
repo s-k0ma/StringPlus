@@ -1,0 +1,20 @@
+#include <stdio.h>
+#include <string.h>
+
+int main(){
+    FILE * fp = fopen("s21_sprintf_test_c.c","r");
+    char * line = NULL;
+    size_t len = 0;
+    size_t read;
+    if (fp)
+        while((read = getline(&line, &len, fp)) != -1){
+            char test_name[256] = {0};
+            if (strncmp(line,"START_TEST(",11) == 0){
+                strncpy(test_name,&line[11], strlen(&line[11]) - 2);
+                printf("tcase_add_test(tc_core, %s);\n",test_name);}
+
+        }
+    else printf("Error opening file\n");
+
+
+}
